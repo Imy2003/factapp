@@ -1,0 +1,15 @@
+<!-- facturation/templates/facturation/create_facture.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Facture</title>
+</head>
+<body>
+    <h1>  Create Facture</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Create Facture">
+    </form>
+</body>
+</html>

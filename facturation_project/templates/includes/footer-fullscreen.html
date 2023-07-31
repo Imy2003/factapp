@@ -1,0 +1,49 @@
+<html>
+<head>
+    <!-- Add your head content here -->
+    {% load static %}
+    <style>
+        /* Style to make the footer sticky at the bottom */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Your main content goes here -->
+
+    <!-- Footer -->
+    <footer class="footer"  style="background-color: beige;">
+        <div class="container">
+            <div class="row">
+                <hr class="d-lg-none" />
+                <div class="col-lg-3">
+                    <!-- Your logo goes here -->
+                    <img src="/static/logo.png" alt="Logo" style="width: 100px; position: absolute; bottom: 1px; right: 1px;">
+                </div>
+                <div class="col-lg-6">
+                    <!-- Your address goes here with a link -->
+                    <p>
+                        <strong>Company Address:</strong>
+                        <a href="https://www.google.com/maps/place/33%C2%B032'19.0%22N+7%C2%B038'26.8%22W/@33.5386111,-7.6407778,19z/data=!3m1!4b1!4m4!3m3!8m2!3d33.5386111!4d-7.6407778?entry=ttu"><br>
+                            Lotissement La Coline , Lot N 11-Sidi Maarouf-Casablanca<br></a>
+                    </p>
+                <hr class="d-lg-none" />
+                </div>
+                <div class="col-lg-9">
+                    <!-- Your text goes here -->
+                    <p>&copy; 2023 Abrar Invest</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
