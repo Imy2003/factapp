@@ -1,0 +1,15 @@
+<!-- templates/invoices/add_fournisseur.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Fournisseur</title>
+</head>
+<body>
+    <h1>Add Fournisseur</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Add Fournisseur">
+    </form>
+</body>
+</html>

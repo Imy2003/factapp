@@ -1,0 +1,18 @@
+<!-- templates/invoices/add_service.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Service</title>
+</head>
+<body>
+    <h1>Add Service</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Add Service">
+    </form>
+</body>
+</html>
+
+
+

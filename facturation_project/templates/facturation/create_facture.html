@@ -1,15 +1,15 @@
-<!-- facturation/templates/facturation/create_facture.html -->
+<!-- templates/invoices/add_facture.html -->
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Create Facture</title>
+    <title>Add Facture</title>
 </head>
 <body>
-    <h1>  Create Facture</h1>
-    <form method="post">
+    <h1>Add Facture</h1>
+    <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Create Facture">
+        <input type="submit" value="Add Facture">
     </form>
 </body>
 </html>

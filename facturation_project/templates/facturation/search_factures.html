@@ -1,0 +1,39 @@
+<!-- templates/invoices/search_factures.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Factures</title>
+</head>
+<body>
+    <h1>Search Factures</h1>
+    <form method="GET" action="{% url 'search_factures' %}">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Search">
+    </form>
+
+    <h2>Search Results</h2>
+    <table>
+        <tr>
+            <th>Facture Number</th>
+            <th>Fournisseur</th>
+            <th>Date Facture</th>
+            <th>Date Dépôt</th>
+            <th>Date Échéance</th>
+            <th>Service</th>
+            <th>Status</th>
+        </tr>
+        {% for facture in factures %}
+        <tr>
+            <td>{{ facture.number }}</td>
+            <td>{{ facture.fournisseur }}</td>
+            <td>{{ facture.date_facture }}</td>
+            <td>{{ facture.date_depot }}</td>
+            <td>{{ facture.date_echeance }}</td>
+            <td>{{ facture.service }}</td>
+            <td>{{ facture.status }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

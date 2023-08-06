@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Gestion de Factures</title>
+    </head>
+    <body>
+        <h1>Gestion des Factures</h1><br/><hr/>
+        <table>
+            <tr>
+                <th>N°Facture</th>
+
+                
+                <th>Fournissuer</th>
+                <th>Date Facture</th>
+                <th>Date Dépot</th>
+                <th>Date Échéance </th>
+                <th>Service</th>
+                <th>Montant</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            {% for facture in factures %}
+            <tr>
+                <td>{{ facture.number }}</td>
+                <td>{{ facture.fournisseur }}</td>
+                <td>{{ facture.date_facture }}</td>
+                <td>{{ facture.date_depot }}</td>
+                <td>{{ facture.date_echeance }}</td>
+                <td>{{ facture.service }}</td>
+                <td>{{ facture.status }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <a href="{% url 'add_facture' %}">Add New Facture</a>
+    </body>
+</html>
+            
+
+
