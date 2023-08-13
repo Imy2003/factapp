@@ -1,0 +1,167 @@
+/* static/invoices/styles.css */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    border-spacing: 0;
+    margin-bottom: 20px;
+  }
+  
+  th, td {
+    border: 1px solid #c78888;
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  th {
+    background-color: #F6F6F6; /* Light gray background color for table header */
+    font-weight: bold;
+  }
+  
+  tr:hover {
+    background-color: #F2F2F2; /* Lighter gray background color on hover */
+  }
+  tr:nth-child(even) {
+    background-color: #FAFAFA; /* Off-white background color for even rows */
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f2f2f2;
+    border: 1px solid #dddddd;
+    padding: 10px;
+    margin-bottom: 20px;
+    }
+  
+  .header h2 {
+    margin-bottom: 5px;
+  }
+  
+  .header a {
+    text-decoration: none;
+    color: #333;
+    padding: 8px 12px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    background-color: #fff;
+    margin-right: 10px;
+  }
+  
+  .header a:hover {
+    background-color: #ddd;
+  }
+  .add-buttons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .add-buttons h2 {
+    margin-right: 15px;
+  }
+/* static/invoices/styles.css */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: #f6f6f6;
+  max-width: 400px; /* Change this value as needed */
+  min-width: 300px; /* Change this value as needed */
+  max-height: 400px; /* Change this value as needed */
+  overflow-y: auto; /* Add a scrollbar if the content overflows the height */
+
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+  background-color: #FF6B6B; /* Bright red color */
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.modal-button + .modal-button {
+  margin-left: 10px;
+}
+
+.modal-button:hover {
+  background-color: #555;
+}
+.modal-content input[type="submit"] {
+  background-color: #3F8EEA; /* Bright blue color */
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.modal-content input[type="submit"]:hover {
+  background-color: #007BFF; /* Darker blue color on hover */
+}
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+
+}
+
+.form-container label {
+  color: #444;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.form-container input[type="text"],
+.form-container select {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.form-container input[type="submit"] {
+  /* ... (existing styles) ... */
+  /* Additional styles for colorful submit button */
+  background-color: #6BCDFF; /* Light blue color */
+  width: 100%; /* Set the submit button to take the full width of the container */
+  max-width: 200px; /* Set a maximum width for the submit button */
+}
+
+.form-container input[type="submit"]:hover {
+  /* ... (existing styles) ... */
+  background-color: #3F75BB; /* Darker blue color on hover */
+}

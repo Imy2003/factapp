@@ -1,42 +1,101 @@
 <!DOCTYPE html>
 <html>
-    <head>
-       
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Gestion de Factures</title>
-    </head>
-    <body>
-        <h1>Gestion des Factures</h1><br/><hr/>
-        <table>
-            <tr>
-                <th>N°Facture</th>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion de Factures</title>
+    <link rel="stylesheet" type="text/css" href="/static/assets/css/style.css">
+</head>
+<body>
+    
+    <div class="header">
+        <h1>Gestion des Factures</h1>
+        <div class="add-buttons">
 
+            <button class="modal-button" data-modal-target="#addFactureModal">Add New Facture</button>
+            <button class="modal-button" data-modal-target="#addFournisseurModal">Add New Fournisseur</button>
+            <button class="modal-button" data-modal-target="#addServiceModal">Add New Service</button>
+            <form method="GET" action="{% url 'facturation:search_factures' %}">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Search">
+            </form>
+        </div>
+        <div class="modal" id="addFactureModal">
+            <div class="modal-content">
+                <h2>Add New Facture</h2>
+                <div class="form-container">
+                    <!-- Add Facture Form Content -->
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ facture_form.as_p }}
+                        <input type="submit" value="Add Facture">
+                    </form>
+                </div>
+            </div>
+        </div>
+          
+          <!-- Add Fournisseur Modal -->
+          <div class="modal" id="addFournisseurModal">
+            <div class="modal-content">
                 
-                <th>Fournissuer</th>
-                <th>Date Facture</th>
-                <th>Date Dépot</th>
-                <th>Date Échéance </th>
-                <th>Service</th>
-                <th>Montant</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-            {% for facture in factures %}
-            <tr>
-                <td>{{ facture.number }}</td>
-                <td>{{ facture.fournisseur }}</td>
-                <td>{{ facture.date_facture }}</td>
-                <td>{{ facture.date_depot }}</td>
-                <td>{{ facture.date_echeance }}</td>
-                <td>{{ facture.service }}</td>
-                <td>{{ facture.status }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-        <a href="{% url 'add_facture' %}">Add New Facture</a>
-    </body>
+                <h2>Add New Fournisseur</h2>
+                <div class='form-container'>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ fournisseur_form.as_p }}
+                        <input type="submit" value="Add Fournisseur">
+                    </form>
+                </div>
+            </div>
+          </div>
+          
+          <!-- Add Service Modal -->
+        <div class="modal" id="addServiceModal">
+            <div class="modal-content">
+                <div class="form-container">
+                    <!-- Add Service Form Content -->
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ service_form.as_p }}
+                        <input type="submit" value="Add Service">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table>
+        <tr>
+            <th>N°Facture</th>
+            <th>Fournissuer</th>
+            <th>Date Facture</th>
+            <th>Date Dépot</th>
+            <th>Date Échéance </th>
+            <th>Service</th>
+            <th>Montant</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        {% for facture in factures %}
+        <tr>
+            <td>{{ facture.number }}</td>
+            <td>{{ facture.fournisseur }}</td>
+            <td>{{ facture.date_facture }}</td>
+            <td>{{ facture.date_depot }}</td>
+            <td>{{ facture.date_echeance }}</td>
+            <td>{{ facture.service }}</td>
+            <td>{{ facture.montant }}</td>
+            <td>{{ facture.status }}</td>
+            <td>
+                <a href="{% url 'facturation:view_facture' facture.pk %}">View</a>
+                <a href="{% url 'facturation:update_facture' facture.pk %}">Update</a>
+                <a href="{% url 'facturation:delete_facture' facture.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <script src="/static/assets/js/modal.js"></script>
+</body>
 </html>
-            
-
-

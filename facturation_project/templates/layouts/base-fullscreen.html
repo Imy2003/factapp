@@ -36,7 +36,7 @@
 
   {% if user.is_authenticated %}
       
-      <a href="{% url 'facturation:create_facture' %}" class="btn btn-success">Create Facture</a>
+      <a href="{% url 'facturation:homepage' %}" class="btn btn-success">Create Facture</a>
       <a href="{% url 'facturation:logout' %}" class="btn btn-danger">Logout</a>
   {% else %}
     <a href="{% url 'facturation:login' %}" class="btn btn-primary">Login</a>
