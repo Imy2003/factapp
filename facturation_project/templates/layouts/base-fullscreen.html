@@ -1,83 +1,66 @@
-<!--
-=========================================================
-* Argon Dashboard - v1.2.0
-=========================================================
-* Product Page: https://www.creative-tim.com/product/argon-dashboard
-
-* Copyright  Creative Tim (http://www.creative-tim.com)
-* Coded by www.creative-tim.com
-=========================================================
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="canonical" href="https://appseed.us/admin-dashboards/django-dashboard-argon">
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion de Factures</title>
+    
+    <link rel="stylesheet" type="text/css" href="/static/assets/css/login.css">
+    <!-- Add your CSS and other stylesheets here -->
+    <style>
+      /* ... your existing CSS ... */
 
-  <link rel="icon" href="/static/assets/img/brand/favicon.png" type="image/png">
-  <!-- Fonts -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
-  <!-- Icons -->
-  <link rel="stylesheet" href="/static/assets/vendor/nucleo/css/nucleo.css" type="text/css">
-  <link rel="stylesheet" href="/static/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
-  <!-- Argon CSS -->
-  <link rel="stylesheet" href="/static/assets/css/argon.css?v=1.2.0" type="text/css">
+      /* Center the sign-in section */
+      .center-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+      }
 
-  <!-- Specific CSS goes HERE -->
-  {% block stylesheets %}{% endblock stylesheets %}
-
+      .login-card {
+          background-color: #ffffff;
+          padding: 20px;
+          border: 1px solid #ccc;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          width: 300px;
+      }
+  </style>
 </head>
 
-<body class="bg-default">
-
-  {% if user.is_authenticated %}
-      
-      <a href="{% url 'facturation:homepage' %}" class="btn btn-success">Create Facture</a>
-      <a href="{% url 'facturation:logout' %}" class="btn btn-danger">Logout</a>
-  {% else %}
-    <a href="{% url 'facturation:login' %}" class="btn btn-primary">Login</a>
-  {% endif %}
-    <div class="main-content">
-
-      {% include "includes/navigation-fullscreen.html" %}
-
-      <!-- Header -->
-      <div class="header bg-gradient-primary py-7 py-lg-8">
-        <div class="container">
-          <div class="header-body text-center mb-7">
-            <div class="row justify-content-center">
-              <div class="col-lg-5 col-md-6">
-                <h1 class="text-white">
-                  
-              </div>
-            </div>
-          </div>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+       
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'facturation:login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'facturation:register' %}">Register</a>
+                </li>
+            </ul>
         </div>
-        <div class="separator separator-bottom separator-skew zindex-100">
-          <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
-            <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
-          </svg>
+    </nav>
+
+    <div class="content">
+      <div class="center-container">
+        <div class="login-card">
+            {% block content %}{% endblock %}
         </div>
       </div>
-      
-      {% block content %}{% endblock content %}
-
-      {% include "includes/footer-fullscreen.html" %}
-
     </div>
-      
-    {% include "includes/scripts.html" %}
+        
 
-    <!-- Specific JS goes HERE --> 
-    {% block javascripts %}{% endblock javascripts %}
-    
-    <script src="/static/assets/js/argon.js?v=1.2.0"></script>
+    <footer class="footer">
+        <div class="container text-center">
+            
+            <p class="title">Gestion des Factures</p>
+            <p>© 2023 Abrar Invest</p>
+        </div>
+    </footer>
 
-
+    <!-- Add your scripts here -->
 </body>
-
 </html>

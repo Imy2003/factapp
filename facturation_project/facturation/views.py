@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseRedirect
 
 from .forms import *
 from django.contrib import messages
@@ -10,13 +11,13 @@ from .models import Facture
 from .forms import FactureForm
 
 
+@login_required(login_url='login/')
+def services(request):
+    services = Service.objects.all()
+    return render(request, 'facturation/service.html', {'services': services})
 
 
 
-
-def facture_list(request):
-    
-    return render(request, 'facturation/facture_list.html')
 
 def register_user(request):
     msg = None
@@ -40,7 +41,8 @@ def register_user(request):
             msg = 'Form is not valid'
  
 
-    return render(request, "templates/register.html", {"form": form, "msg": msg, "success": success})
+    return render(request, "templates/facturation/register.html", {"form": form, "msg": msg, "success": success})
+
 
 
 def login_view(request):
@@ -52,30 +54,88 @@ def login_view(request):
         
         if user is not None:
             login(request,user)
-            return redirect ('facturation:homepage')
+            if request.GET.get('next',None):
+                return HttpResponseRedirect(request.GET['next'])
+            else:
+                return redirect ('facturation:homepage')
         else:
             messages.info(request,'Username or password is incorrect  ')
             return redirect('/login/')
     context ={}
-    return render(request, "templates/login.html", context)
+    return render(request, "templates/facturation/login.html", context)
+
 
 def logout_view(request):
     logout(request)
     return redirect('facturation:login')
 
-@login_required
+
+@login_required(login_url='login/')
 def homepage(request):
-    facture_form = FactureForm()
-    fournisseur_form = FournisseurForm()
-    service_form = ServiceForm()
-    factures=Facture.objects.all()
-    return render(request, 'facturation/homepage.html',{'factures': factures,
+   
+
+
+
+    if request.method == 'POST':
+        facture_form = FactureForm(request.POST)
+        fournisseur_form = FournisseurForm(request.POST)
+        service_form = ServiceForm(request.POST)
+
+        if facture_form.is_valid():
+            facture_form.save()
+            return redirect('facturation:homepage')
+        if fournisseur_form.is_valid():
+            fournisseur_form.save()
+            return redirect('facturation:homepage')
+        if service_form.is_valid():
+            service_form.save()
+            return redirect('facturation:homepage')
+
+    else:
+        facture_form = FactureForm()
+        fournisseur_form = FournisseurForm()
+        service_form = ServiceForm()
+    factures = Facture.objects.all()  # This is for the homepage view
+    form = SearchForm(request.GET)  # This is for the homepage view
+
+    return render(request, 'facturation/homepage.html', { 'factures': factures,
         'facture_form': facture_form,
         'fournisseur_form': fournisseur_form,
-        'service_form': service_form,})
+        'service_form': service_form,
+        'form':form  # This ensures the filter form is also present on the page
+    })
+
+@login_required(login_url='login/')
+def fournisseurs(request):
+    
+    Fournisseurs=Fournisseur.objects.all()
+    return render(request, 'facturation/fournisseurs.html',{'Fournisseurs':Fournisseurs})
 
 
-@login_required
+@login_required(login_url='login/')
+def search(request):
+     
+        form = SearchForm(request.GET)
+        factures = Facture.objects.all()
+
+        if form.is_valid():
+            fournisseur = form.cleaned_data['fournisseur']
+            service = form.cleaned_data['service']
+            date = form.cleaned_data['date']
+
+            if fournisseur:
+                factures = factures.filter(fournisseur=fournisseur)
+            if service:
+                factures = factures.filter(service=service)
+            if date:
+                factures = factures.filter(date_facture=date)
+    
+        return render(request,'facturation/homepage.html',{'factures':factures,'form':form})
+
+
+
+
+@login_required(login_url='login/')
 def add_facture(request):
     if request.method == 'POST':
         form = FactureForm(request.POST)
@@ -86,6 +146,10 @@ def add_facture(request):
         form = FactureForm()
     return render(request, 'facturation/add_facture.html', {'form': form})
 
+
+
+
+@login_required(login_url='login/')
 def add_fournisseur(request):
     if request.method == 'POST':
         form = FournisseurForm(request.POST)
@@ -97,6 +161,9 @@ def add_fournisseur(request):
     return render(request, 'facturation/add_fournisseur.html', {'form': form})
 
 
+
+
+@login_required(login_url='login/')
 def add_service(request):
     if request.method == 'POST':
         form = ServiceForm(request.POST)
@@ -108,27 +175,17 @@ def add_service(request):
     return render(request, 'facturation/add_service.html', {'form': form})
 
 
-def search_factures(request):
-    if request.method == 'GET':
-        form = SearchForm(request.GET)
-        if form.is_valid():
-            query = form.cleaned_data['query']
-            # Perform filtering based on the query
-            if query:
-                factures = Facture.objects.filter(number__icontains=query)  # Example: search by facture number
-            else:
-                factures = Facture.objects.all()
-        else:
-            factures = Facture.objects.all()
-            form = SearchForm()
-
-    return render(request, 'facturation/search_factures.html', {'factures': factures, 'form': form})
 
 
+
+
+@login_required(login_url='login/')
 def view_facture(request, pk):
     facture = get_object_or_404(Facture, pk=pk)
     return render(request, 'facturation/view_facture.html', {'facture': facture})
 
+
+@login_required(login_url='login/')
 def update_facture(request, pk):
     facture = get_object_or_404(Facture, pk=pk)
     if request.method == 'POST':
@@ -140,6 +197,9 @@ def update_facture(request, pk):
         form = FactureForm(instance=facture)
     return render(request, 'facturation/update_facture.html', {'form': form, 'facture': facture})
 
+
+
+@login_required(login_url='login/')
 def delete_facture(request, pk):
     facture = get_object_or_404(Facture, pk=pk)
     if request.method == 'POST':

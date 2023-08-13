@@ -19,4 +19,10 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   });
+  const menuBtn = document.querySelector('.menu-btn');
+  const hiddenMenu = document.querySelector('.hidden-menu');
+  
+  menuBtn.addEventListener('click', () => {
+    hiddenMenu.classList.toggle('menu-open');
+  });
   

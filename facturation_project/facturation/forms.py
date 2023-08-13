@@ -58,4 +58,6 @@ class FactureForm(forms.ModelForm):
 
 
 class SearchForm(forms.Form):
-    query = forms.CharField(label='Search Query', max_length=100, required=False)
+    fournisseur = forms.ModelChoiceField(queryset=Fournisseur.objects.all(), empty_label="Select Fournisseur", required=False)
+    service = forms.ModelChoiceField(queryset=Service.objects.all(), empty_label="Select Service", required=False)
+    date = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}))

@@ -5,33 +5,37 @@ table {
     font-family: Arial, sans-serif;
     border-spacing: 0;
     margin-bottom: 20px;
+    overflow-y: auto;
+    
   }
   
   th, td {
-    border: 1px solid #c78888;
+    border: 10px solid #fff;
     padding: 12px;
     text-align: left;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 10px solid #fff;
   }
   
   th {
-    background-color: #F6F6F6; /* Light gray background color for table header */
+    background-color: #ffd699; /* Light gray background color for table header */
     font-weight: bold;
   }
   
   tr:hover {
-    background-color: #F2F2F2; /* Lighter gray background color on hover */
+    background-color: #ffd699; /* Lighter gray background color on hover */
   }
   tr:nth-child(even) {
-    background-color: #FAFAFA; /* Off-white background color for even rows */
+    background-color: #ffebcd; /* Off-white background color for even rows */
   }
   .header {
     display: flex;
     justify-content: space-between;
-    background-color: #f2f2f2;
+    background-color: #ffb923;
     border: 1px solid #dddddd;
-    padding: 10px;
+    padding: 20px;
     margin-bottom: 20px;
+    margin-left: 78px;
+    overflow-y: auto;
     }
   
   .header h2 {
@@ -72,17 +76,23 @@ table {
   align-items: center;
   justify-content: center;
 }
-
+body {
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  overflow-y: auto;
+}
 .modal-content {
   background-color: #fff;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  background-color: #f6f6f6;
+  
   max-width: 400px; /* Change this value as needed */
   min-width: 300px; /* Change this value as needed */
-  max-height: 400px; /* Change this value as needed */
-  overflow-y: auto; /* Add a scrollbar if the content overflows the height */
+  max-height: auto; /* Change this value as needed */
+   /* Add a scrollbar if the content overflows the height */
 
 }
 
@@ -95,10 +105,10 @@ table {
   border: none;
   border-radius: 4px;
   background-color: #333;
-  color: #fff;
+  
   cursor: pointer;
-  background-color: #FF6B6B; /* Bright red color */
-  color: #fff;
+  background-color: #fff; /* Bright red color */
+  color: #000000;
   font-weight: bold;
   cursor: pointer;
   border-radius: 30px;
@@ -110,11 +120,11 @@ table {
 }
 
 .modal-button:hover {
-  background-color: #555;
+  background-color: #ffebcd;
 }
 .modal-content input[type="submit"] {
-  background-color: #3F8EEA; /* Bright blue color */
-  color: #fff;
+  background-color: #ffb923; /* Bright blue color */
+  color: #000000;
   font-weight: bold;
   border: none;
   border-radius: 30px;
@@ -125,7 +135,7 @@ table {
 }
 
 .modal-content input[type="submit"]:hover {
-  background-color: #007BFF; /* Darker blue color on hover */
+  background-color: #ffb923; /* Darker blue color on hover */
 }
 .form-container {
   display: flex;
@@ -156,12 +166,251 @@ table {
 .form-container input[type="submit"] {
   /* ... (existing styles) ... */
   /* Additional styles for colorful submit button */
-  background-color: #6BCDFF; /* Light blue color */
+  background-color: #ffd699; /* Light blue color */
   width: 100%; /* Set the submit button to take the full width of the container */
   max-width: 200px; /* Set a maximum width for the submit button */
 }
 
 .form-container input[type="submit"]:hover {
   /* ... (existing styles) ... */
-  background-color: #3F75BB; /* Darker blue color on hover */
+  background-color: #ffb923; /* Darker blue color on hover */
+}
+.
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins" , sans-serif;
+}
+.sidebar{
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 78px;
+  background: #ffb923;
+  
+  z-index: 1;
+  transition: all 0.5s ease;
+}
+.sidebar.open{
+  width: 250px;
+}
+.sidebar .logo-details{
+  height: 60px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.sidebar .logo-details .icon{
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+.sidebar .logo-details .logo_name{
+  color: #ffb923;
+  font-size: 20px;
+  font-weight: 600;
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+.sidebar.open .logo-details .icon,
+.sidebar.open .logo-details .logo_name{
+  opacity: 1;
+}
+.sidebar .logo-details #btn{
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  left:50%;
+  transform: translateY(-50%);
+  font-size: 22px;
+  transition: all 0.4s ease;
+  font-size: 23px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.sidebar.open .logo-details #btn{
+  text-align: right;
+}
+.sidebar i{
+  color: #000000;
+  height: 60px;
+  min-width: 20px;
+  font-size: 28px;
+  text-align: center;
+  line-height: 60px;
+}
+.sidebar .nav-list{
+  background-color: #ffb923;
+  background-color: #ffb923; 
+  margin-top: 20px; 
+  height: 100%;
+}
+.sidebar li{
+  position: relative;
+  margin: 8px 0;
+  list-style: none;
+}
+.sidebar li .tooltip{
+  position: absolute;
+  top: -20px;
+  left: calc(100% + 15px);
+  z-index: 3;
+  background: #ffb923;
+  box-shadow: 0 5px 10px rgb(255, 255, 255);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 400;
+  opacity: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: 0s;
+}
+.sidebar li:hover .tooltip{
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 0.4s ease;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.sidebar.open li .tooltip{
+  display: none;
+}
+.sidebar input{
+  font-size: 15px;
+  color: #FFF;
+  font-weight: 400;
+  outline: none;
+  height: 50px;
+  width: 100%;
+  width: 50px;
+  border: none;
+  border-radius: 12px;
+  transition: all 0.5s ease;
+  background: #1d1b31;
+}
+.sidebar.open input{
+  padding: 0 20px 0 50px;
+  width: 100%;
+}
+
+
+.sidebar li a{
+  display: flex;
+  height: 100%;
+  width: 100%;
+  border-radius: 12px;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.4s ease;
+
+}
+.sidebar li a:hover{
+  background: #FFF;
+}
+.sidebar li a .links_name{
+  color: #fff;
+  font-size: 15px;
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.4s;
+}
+.sidebar.open li a .links_name{
+  opacity: 1;
+  pointer-events: auto;
+}
+.sidebar li a:hover .links_name,
+.sidebar li a:hover i{
+  transition: all 0.5s ease;
+  color: #ffb923;
+}
+.sidebar li i{
+  height: 50px;
+  line-height: 50px;
+  font-size: 18px;
+  border-radius: 12px;
+}
+.sidebar li.profile{
+  position: fixed;
+  height: 60px;
+  width: 78px;
+  left: 0;
+  bottom: -8px;
+  padding: 10px 14px;
+  background: #ffb923;
+  transition: all 0.5s ease;
+  overflow: hidden;
+}
+.sidebar.open li.profile{
+  width: 250px;
+}
+.sidebar li .profile-details{
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.sidebar li img{
+  height: 45px;
+  width: 45px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+.sidebar li.profile .name,
+.sidebar li.profile .job{
+  font-size: 15px;
+  font-weight: 400;
+  color: #fff;
+  white-space: nowrap;
+}
+.sidebar li.profile .job{
+  font-size: 12px;
+}
+.sidebar .profile #log_out{
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background: #1d1b31;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 0px;
+  transition: all 0.5s ease;
+}
+.sidebar.open .profile #log_out{
+  width: 50px;
+  background: none;
+}
+.home-section{
+  position: relative;
+  background: #fff;
+  min-height: 100vh;
+  top: 0;
+  left: 78px;
+  width: calc(100% - 78px);
+  transition: all 0.5s ease;
+  z-index: 2;
+}
+.sidebar.open ~ .home-section{
+  left: 250px;
+  width: calc(100% - 250px);
+}
+.home-section .text{
+  display: inline-block;
+  color: #ffffff;
+  font-size: 25px;
+  font-weight: 500;
+  margin: 18px
+}
+@media (max-width: 420px) {
+  .sidebar li .tooltip{
+    display: none;
+  }
 }
