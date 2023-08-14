@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import user_passes_test
+import logging
 
 from .forms import *
 from django.contrib import messages
@@ -17,7 +19,18 @@ def services(request):
     return render(request, 'facturation/service.html', {'services': services})
 
 
+def logout_view(request):
+    logger = logging.getLogger(__name__)
 
+    # Log before logging out
+    logger.debug('Logging out user: %s', request.user)
+
+    logout(request)
+
+    # Log after logging out
+    logger.debug('User logged out.')
+
+    return redirect('facturation:login')
 
 def register_user(request):
     msg = None
@@ -43,8 +56,18 @@ def register_user(request):
 
     return render(request, "templates/facturation/register.html", {"form": form, "msg": msg, "success": success})
 
+@login_required(login_url='login')
+def profile(request):
+    user = request.user
+    return render(request, 'facturation/profile.html', {'user': user})
 
 
+
+
+def is_not_authenticated(user):
+    return not user.is_authenticated
+
+@user_passes_test(is_not_authenticated, login_url='facturation:homepage')
 def login_view(request):
    
     if request.method == "POST":
@@ -64,7 +87,7 @@ def login_view(request):
     context ={}
     return render(request, "templates/facturation/login.html", context)
 
-
+@login_required(login_url='login/')
 def logout_view(request):
     logout(request)
     return redirect('facturation:login')

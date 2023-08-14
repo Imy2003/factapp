@@ -10,6 +10,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('', login_required(views.homepage,login_url='facturation:login'), name='homepage'),
     path('homepage/', login_required(views.homepage,login_url='facturation:login'), name='homepage'),
+    path('profile/', views.profile, name='profile'),
 
    
     #CRUD for Factures
@@ -33,5 +34,7 @@ urlpatterns = [
     path('service/<int:pk>/', views.view_service, name='view_service'),
     path('service/<int:pk>/update/', views.update_service, name='update_service'),
     path('service/<int:pk>/delete/', views.delete_service, name='delete_service'),
+
+    
 
 ]
