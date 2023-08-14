@@ -154,8 +154,13 @@ def add_fournisseur(request):
     if request.method == 'POST':
         form = FournisseurForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('facturation:homepage')
+            fournisseur_name = form.cleaned_data['name']
+            if Fournisseur.objects.filter(name=fournisseur_name).exists():
+                # Supplier with this name already exists, show an error message
+                messages.error(request, f"Fournisseur '{fournisseur_name}' already exists.")
+            else:
+                form.save()
+                return redirect('facturation:homepage')
     else:
         form = FournisseurForm()
     return render(request, 'facturation/add_fournisseur.html', {'form': form})
@@ -168,8 +173,13 @@ def add_service(request):
     if request.method == 'POST':
         form = ServiceForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('facturation:homepage')
+            service_name = form.cleaned_data['name']
+            if Service.objects.filter(name=service_name).exists():
+                # Supplier with this name already exists, show an error message
+                messages.error(request, f"Service '{service_name}' already exists.")
+            else:
+                form.save()
+                return redirect('facturation:homepage')
     else:
         form = ServiceForm()
     return render(request, 'facturation/add_service.html', {'form': form})
@@ -206,3 +216,58 @@ def delete_facture(request, pk):
         facture.delete()
         return redirect('facturation:homepage')
     return render(request, 'facturation/delete_facture.html', {'facture': facture})
+
+
+
+
+def view_service(request, pk):
+    service = get_object_or_404(Service, pk=pk)
+    return render(request, 'facturation/view_service.html', {'service': service})
+
+def update_service(request, pk):
+    service = get_object_or_404(Service, pk=pk)
+    if request.method == 'POST':
+        form = ServiceForm(request.POST, instance=service)
+        if form.is_valid():
+            form.save()
+            return redirect('facturation:view_service', pk=pk)
+    else:
+        form = ServiceForm(instance=service)
+    return render(request, 'facturation/update_service.html', {'form': form, 'service': service})
+
+def delete_service(request, pk):
+    service = get_object_or_404(Service, pk=pk)
+    if request.method == 'POST':
+        service.delete()
+        return redirect('facturation:services')
+    return render(request, 'facturation/delete_service.html', {'service': service})
+
+
+
+
+
+
+def view_fournisseur(request, pk):
+    fournisseur = get_object_or_404(Fournisseur, pk=pk)
+    return render(request, 'facturation/view_fournisseur.html', {'fournisseur': fournisseur})
+
+def update_fournisseur(request, pk):
+    fournisseur = get_object_or_404(Fournisseur, pk=pk)
+    if request.method == 'POST':
+        form = FournisseurForm(request.POST, instance=fournisseur)
+        if form.is_valid():
+            form.save()
+            return redirect('facturation:view_fournisseur', pk=pk)
+    else:
+        form = FournisseurForm(instance=fournisseur)
+    return render(request, 'facturation/update_fournisseur.html', {'form': form, 'fournisseur': fournisseur})
+
+def delete_fournisseur(request, pk):
+    fournisseur = get_object_or_404(Fournisseur, pk=pk)
+    if request.method == 'POST':
+        fournisseur.delete()
+        return redirect('facturation:fournisseurs')
+    return render(request, 'facturation/delete_fournisseur.html', {'fournisseur': fournisseur})
+
+
+

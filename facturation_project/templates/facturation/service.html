@@ -2,11 +2,24 @@
 
 {% block content %}
 <div class='galerie'>
-    {% for service in services %}
-    <div class="service-card">
-        <h3>{{ service.name }}</h3>
-        <p>{{ service.description }}</p>
-    </div>
-    {% endfor %}
+    <h2>Services</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+        {% for service in services %}
+        <tr>
+            <td>{{ service.name }}</td>
+            <td>{{ service.description }}</td>
+            <td>
+                <a href="{% url 'facturation:update_service' service.pk %}">Edit</a>
+                <a href="{% url 'facturation:delete_service' service.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'facturation:add_service' %}">Add New Service</a>
 </div>
 {% endblock %}

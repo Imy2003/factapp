@@ -1,0 +1,8 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<h2>{{ service.name }}</h2>
+<p>{{ service.description }}</p>
+<a href="{% url 'facturation:update_service' service.pk %}">Edit</a>
+<a href="{% url 'facturation:delete_service' service.pk %}">Delete</a>
+{% endblock %}

@@ -45,11 +45,21 @@ class FournisseurForm(forms.ModelForm):
     class Meta:
         model = Fournisseur
         fields = ['name', 'email', 'phone']
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        if Fournisseur.objects.filter(name=name).exists():
+            raise forms.ValidationError("This supplier already exists.")
+        return name
 
 class ServiceForm(forms.ModelForm):
     class Meta:
         model = Service
         fields = ['name']
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        if Service.objects.filter(name=name).exists():
+            raise forms.ValidationError("This service already exists.")
+        return name
 
 class FactureForm(forms.ModelForm):
     class Meta:

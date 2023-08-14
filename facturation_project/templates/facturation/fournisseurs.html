@@ -2,23 +2,26 @@
 
 {% block content %}
 <div class='home-section'>
+    <h2>Fournisseurs</h2>
     <table>
         <tr>
             <th>Non Fournisseur</th>
-            
             <th>Email</th>
-            <th>phone</th>
-            
+            <th>Phone</th>
+            <th>Actions</th> <!-- Add a new column for actions -->
         </tr>
         {% for fournisseur in Fournisseurs %}
         <tr>
             <td>{{ fournisseur.nom }}</td>
             <td>{{ fournisseur.email }}</td>
             <td>{{ fournisseur.phone }}</td>
-          
-            
+            <td>
+                <a href="{% url 'facturation:update_fournisseur' fournisseur.pk %}">Edit</a>
+                <a href="{% url 'facturation:delete_fournisseur' fournisseur.pk %}">Delete</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
+    <a href="{% url 'facturation:add_fournisseur' %}">Add New Fournisseur</a>
 </div>
 {% endblock %}
