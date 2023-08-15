@@ -9,14 +9,6 @@ from django import forms
     #password = forms.CharField(widget=forms.PasswordInput)
 
 
-class Client(models.Model):
-    name = models.CharField(max_length=100)
-    email = models.EmailField()
-    phone = models.CharField(max_length=15)
-
-    def __str__(self):
-        return self.name
-    
 
 class Service(models.Model):
     name = models.CharField(max_length=100)

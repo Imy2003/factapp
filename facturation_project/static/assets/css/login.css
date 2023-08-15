@@ -3,8 +3,9 @@
 }
 
 .login-card {
+    /* background-color: #FFD699; */
     border: none;
-    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 5px 20px #FFD699;
 }
 
 .login-card .card-body {
@@ -25,16 +26,16 @@
 }
 
 .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
+    background-color: #E2A52E;
+    border-color: #E2A52E;
 }
 
 .btn-primary:hover {
-    background-color: #0056b3;
+    background-color: #ffd699;
     border-color: #0056b3;
 }
 .navbar {
-    background-color: #ffffff;
+    background-color: #ffebcd
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -69,6 +70,7 @@
     margin-bottom: 20px;
 }
 body {
+    background-color: #FFB923;
     margin: 0;
     padding: 0;
     display: flex;
@@ -82,7 +84,7 @@ body {
 }
 
 .footer {
-    background-color: #f8f9fa;
+    background-color: #ffd699;
     padding: 10px 0;
     text-align: center;
     position: fixed;
