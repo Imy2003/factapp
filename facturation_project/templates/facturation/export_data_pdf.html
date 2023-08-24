@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exported Data</title>
+    
+   
+    
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .table-container {
+            margin: 20px 30px; /* Adjust margins as needed */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #e0e0e0;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+   
+</head>
+<body>
+    
+        <table>
+            
+            <tr>
+                <th>N°Facture</th>
+                <th>Fournisseur</th>
+                <th>Date Facture</th>
+                <th>Date Dépot</th>
+                <th>Date Échéance</th>
+                <th>Service</th>
+                <th>Montant</th>
+                <th>Status</th>
+                
+                <!-- Add other headers here -->
+            </tr>
+            
+            <tbody>
+                {% for row in data %}
+                    <tr>
+                        <td>{{ row.numero }}</td>
+                        <td>{{ row.fournisseur }}</td>
+                        <td>{{ row.date_facture }}</td>
+                        <td>{{ row.date_depot }}</td>
+                        <td>{{ row.echeance }}</td>
+                        <td>{{ row.service }}</td>
+                        <td>{{ row.montant }}</td>
+                        <td>{{ row.status }}</td>
+                        <!-- Add other data fields here -->
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+</body>
+</html>

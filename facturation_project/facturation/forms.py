@@ -12,6 +12,7 @@ class SignUpForm(UserCreationForm):
     
     class Meta:
         model = User
+        
         fields = ['username', 'email','password1','password2']
 
 
@@ -42,7 +43,8 @@ class FactureForm(forms.ModelForm):
         model = Facture
         fields = ['numero', 'fournisseur', 'date_facture', 'date_depot', 'service', 'status','montant']
 
-
+class SearchView(forms.Form):
+    q = forms.CharField(label="Search", max_length=200)
 class SearchForm(forms.Form):
     fournisseur = forms.ModelChoiceField(queryset=Fournisseur.objects.all(), empty_label="Select Fournisseur", required=False)
     service = forms.ModelChoiceField(queryset=Service.objects.all(), empty_label="Select Service", required=False)

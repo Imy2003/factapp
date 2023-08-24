@@ -13,7 +13,7 @@ urlpatterns = [
     path('', views.homepage, name='homepage'),
     path('homepage/', views.homepage, name='homepage'),
     #sidebar paths
-    path('profile/', views.profile, name='profile'),
+
     path('factures',views.homepage,name='factures'),
     path('fournisseurs/',views.fournisseurs,name='fournisseurs'),
     path('services/', views.services, name='services'),
@@ -32,5 +32,7 @@ urlpatterns = [
     path('service/<int:pk>/', views.view_service, name='view_service'),
     path('service/<int:pk>/update/', views.update_service, name='update_service'),
     path('service/<int:pk>/delete/', views.delete_service, name='delete_service'),
+    #exporting_importing
+    path('export/', views.export_data, name="export_data"),
 
 ]

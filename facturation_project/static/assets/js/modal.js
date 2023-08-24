@@ -26,3 +26,27 @@ document.addEventListener('DOMContentLoaded', function() {
     hiddenMenu.classList.toggle('menu-open');
   });
   
+
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("search-input");
+    const tableBody = document.getElementById("table-body");
+
+    searchInput.addEventListener("input", function () {
+        const searchText = searchInput.value.toLowerCase();
+
+        // Filtrer les lignes du tableau en fonction du texte saisi
+        const rows = tableBody.getElementsByTagName("tr");
+        for (const row of rows) {
+            const cells = row.getElementsByTagName("td");
+            let shouldDisplay = false;
+            for (const cell of cells) {
+                if (cell.textContent.toLowerCase().includes(searchText)) {
+                    shouldDisplay = true;
+                    break;
+                }
+            }
+            row.style.display = shouldDisplay ? "" : "none";
+        }
+    });
+});

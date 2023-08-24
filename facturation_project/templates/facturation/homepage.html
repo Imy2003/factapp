@@ -1,7 +1,25 @@
 {% extends "layouts/base.html" %}
+{% load group_tags %}
+
 
 {% block content %}
 <div class='home-section'>
+    <div class="search-and-filters">
+        
+        <div class="filters">
+            <form method="GET">
+                {{ myFilter.form }}
+                <button type="submit">Filtrer</button>
+            </form>
+        </div>
+        <div class="search-bar">
+            <form method="GET" action="{% url 'facturation:homepage' %}">
+               
+                <input type="text" id="search-input" value="{{request.GET.q}}" name="q" placeholder="Rechercher...",name='search'>
+                <button id="search-button">Rechercher</button>
+            </form>
+        </div>
+    </div>
     <table>
         <tr>
             <th>N°Facture</th>
@@ -14,7 +32,8 @@
             <th>Status</th>
             <th>Action</th>
         </tr>
-        {% for facture in factures %}
+        <tbody id="table-body">
+        {% for facture in factures_filtered %}
         <tr>
             <td>{{ facture.numero }}</td>
             <td>{{ facture.fournisseur }}</td>
@@ -28,15 +47,47 @@
                 <a href="{% url 'facturation:view_facture' facture.pk %}">
                     <i class="bi bi-eye-fill"></i>
                 </a><br/>
+                {% if request.user|user_in_group:'admin' %}
                 <a href="{% url 'facturation:update_facture' facture.pk %}">
                     <i class="bi bi-pencil-fill"></i>
                 </a><br/>
                 <a href="{% url 'facturation:delete_facture' facture.pk %}">
                     <i class="bi bi-trash3-fill"></i>
                 </a>
+                {%endif%}
             </td>
         </tr>
         {% endfor %}
+        </tbody>
     </table>
+    
+    <div class="pagination">
+        {% if factures_filtered.has_previous %}
+            <a href="?page={{ factures_filtered.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">&laquo;</a>
+        {% else %}
+            <span class="disabled">&laquo;</span>
+        {% endif %}
+    
+        {% for i in factures_filtered.paginator.page_range %}
+            {% if factures_filtered.number == i %}
+                <span class="current">{{ i }}</span>
+            {% else %}
+                <a href="?page={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ i }}</a>
+            {% endif %}
+        {% endfor %}
+    
+        {% if factures_filtered.has_next %}
+            <a href="?page={{ factures_filtered.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">&raquo;</a>
+        {% else %}
+            <span class="disabled">&raquo;</span>
+        {% endif %}
+    </div>
+    
+    
+
 </div>
+
+
+<!-- Votre code JavaScript ici -->
+
 {% endblock %}

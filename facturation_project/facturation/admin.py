@@ -1,6 +1,9 @@
 from django.contrib import admin
 from .models import Facture, Fournisseur,  Service
-admin.site.register(Facture)
-admin.site.register(Fournisseur)
+from .resources import FactureResource  # Import the resource
 
-admin.site.register(Service)
+class FactureAdmin(admin.ModelAdmin):
+    resource_class = FactureResource
+
+admin.site.register(Facture, FactureAdmin)
+

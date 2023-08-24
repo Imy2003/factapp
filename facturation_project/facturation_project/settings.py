@@ -33,6 +33,8 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'facturation',
+    'django_filters',
+    'import_export',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,6 +45,7 @@ INSTALLED_APPS = [
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
+IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'

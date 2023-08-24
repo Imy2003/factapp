@@ -1,7 +1,8 @@
 {% extends "layouts/base.html" %}
+{% load group_tags %}
 
 {% block content %}
-<div class='galerie'>
+<div class='home-section'>
     <h2>Services</h2>
     <table>
         <tr>
@@ -14,12 +15,13 @@
             <td>{{ service.name }}</td>
             <td>{{ service.description }}</td>
             <td>
-                <a href="{% url 'facturation:update_service' service.pk %}">Edit</a>
+                {% if request.user|user_in_group:'admin' %}                <a href="{% url 'facturation:update_service' service.pk %}">Edit</a>
                 <a href="{% url 'facturation:delete_service' service.pk %}">Delete</a>
+                {%endif%}
             </td>
         </tr>
         {% endfor %}
     </table>
-    <a href="{% url 'facturation:add_service' %}">Add New Service</a>
+   
 </div>
 {% endblock %}
