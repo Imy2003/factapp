@@ -1,56 +1,82 @@
 {% extends "layouts/base.html" %}
+{% load group_tags %}
+{% load popup_field_tags %} <!-- Load the popup_field_tags -->
 
 {% block content %}
 <div class='home-section'>
-   
     <h2>Fournisseurs</h2>
     <table>
         <tr>
             <th>Non Fournisseur</th>
             <th>Email</th>
             <th>Phone</th>
-            {% if request.user.is_admin%}
-            <th>Actions</th> <!-- Add a new column for actions -->
-            {%endif%}
+            {% if request.user|user_in_group:'admin' %}
+            <th>Actions</th>
+            {% endif %}
         </tr>
         {% for fournisseur in Fournisseurs %}
         <tr>
             <td>{{ fournisseur.name }}</td>
             <td>{{ fournisseur.email }}</td>
             <td>{{ fournisseur.phone }}</td>
-            {% if request.user.is_admin%}
+            {% if request.user|user_in_group:'admin' %}
             <td>
-               
-                <a href="{% url 'facturation:update_fournisseur' fournisseur.pk %}">Edit</a>
-                <a href="{% url 'facturation:delete_fournisseur' fournisseur.pk %}">Delete</a>
-            
+                <a href="#" onclick="openPopup('{% popup_instance_form fournisseur %}')">Edit</a>
+                <a href="#" onclick="openPopup('{% popup_instance_delete fournisseur %}')">Delete</a>
             </td>
-            {% endif%}
+            {% endif %}
         </tr>
         {% endfor %}
     </table>
-    <div class="pagination">
-        {% if factures_filtered.has_previous %}
-            <a href="?page={{ factures_filtered.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">&laquo;</a>
-        {% else %}
-            <span class="disabled">&laquo;</span>
-        {% endif %}
-    
-        {% for i in factures_filtered.paginator.page_range %}
-            {% if factures_filtered.number == i %}
-                <span class="current">{{ i }}</span>
-            {% else %}
-                <a href="?page={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ i }}</a>
-            {% endif %}
-        {% endfor %}
-    
-        {% if factures_filtered.has_next %}
-            <a href="?page={{ factures_filtered.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">&raquo;</a>
-        {% else %}
-            <span class="disabled">&raquo;</span>
-        {% endif %}
-    </div>
-    
-    
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    function openPopup(url) {
+        $.get(url, function(data) {
+            $('.modal-content').html(data);
+            $('.modal').show();
+        });
+    }
+
+    $(document).ready(function() {
+        // Event listener for clicking on "Edit" links
+        $('.edit-link').click(function(e) {
+            e.preventDefault();
+            var pk = $(this).data('pk');
+            var editUrl = '{% url "facturation:update_fournisseur" 0 %}'.replace('0', pk);
+            openPopup(editUrl);
+        });
+        
+        // Event listener for clicking on "Delete" links
+        $('.delete-link').click(function(e) {
+            e.preventDefault();
+            var pk = $(this).data('pk');
+            var deleteUrl = '{% url "facturation:delete_fournisseur" 0 %}'.replace('0', pk);
+            openPopup(deleteUrl);
+        });
+    
+        // Event listener for clicking outside the modal content to close the modals
+        $('.modal').click(function(e) {
+            if (e.target === this) {
+                $(this).hide();
+            }
+        });
+        
+        // Event listener for form submissions
+        $('#edit-form, #delete-form').submit(function(e) {
+            e.preventDefault(); // Prevent the default form submission
+            var form = $(this);
+
+            $.post(form.attr('action'), form.serialize(), function(data) {
+                // Handle the response if needed, such as displaying success messages
+                // or updating the content on the page
+                // Then, close the modals
+                $('.modal').hide();
+            });
+        });
+    });
+</script>
+
 {% endblock %}

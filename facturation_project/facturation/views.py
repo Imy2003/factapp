@@ -29,9 +29,9 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 
 from django.template.loader import render_to_string
 import os
-os.add_dll_directory(r"C:\Program Files\GTK3-Runtime Win64\bin")
 
-from weasyprint import HTML
+
+
 from django.db.models import Q
 # ...
 
@@ -359,7 +359,7 @@ def update_fournisseur(request, pk):
         form = FournisseurForm(request.POST, instance=fournisseur)
         if form.is_valid():
             form.save()
-            return redirect('facturation:view_fournisseur', pk=pk)
+            return redirect('facturation:fournisseurs', pk=pk)
     else:
         form = FournisseurForm(instance=fournisseur)
     return render(request, 'facturation/update_fournisseur.html', {'form': form, 'fournisseur': fournisseur})
@@ -447,3 +447,11 @@ def export_data(request):
         
     return render(request, 'export_data.html') 
 
+def render_edit_fournisseur_popup(request, pk):
+    fournisseur = Fournisseur.objects.get(pk=pk)
+    form = FournisseurForm(instance=fournisseur)
+    return render(request, 'update_fournisseur.html', {'form': form})
+
+def render_delete_fournisseur_popup(request, pk):
+    fournisseur = Fournisseur.objects.get(pk=pk)
+    return render(request, 'delete_fournisseur_popup.html', {'fournisseur': fournisseur})

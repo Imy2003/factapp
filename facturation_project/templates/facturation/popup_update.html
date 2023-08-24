@@ -1,0 +1,6 @@
+<!-- Add the form for updating the fournisseur -->
+<form method="post" action="{% url 'facturation:update_fournisseur' fournisseur.pk %}">
+    {% csrf_token %}
+    <!-- Add form fields here -->
+    <button type="submit">Update</button>
+</form>

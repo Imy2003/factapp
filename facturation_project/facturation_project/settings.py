@@ -34,7 +34,10 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'facturation',
     'django_filters',
+    'popup_field',
     'import_export',
+   
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

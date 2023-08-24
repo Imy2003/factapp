@@ -1,0 +1,8 @@
+<div class="add-buttons">
+    {% if request.user|user_in_group:'admin' %}
+    <button class="modal-button" data-modal-target="#addFactureModal">Add New Facture</button>
+    <button class="modal-button" data-modal-target="#addFournisseurModal">Add New Fournisseur</button>
+    {%endif%}
+    <button class="modal-button" data-modal-target="#Imprimer">Imprimer</button>
+
+</div>
