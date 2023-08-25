@@ -1,9 +1,11 @@
-{% extends "layouts/base.html" %}
-
-{% block content %}
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save Changes</button>
-</form>
-{% endblock %}
+<!-- Edit Modal -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <form id="edit-form" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Update</button>
+            <a class="modal-close" href="#">Close</a>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+<!-- Display a confirmation message and delete button -->
+<p>Are you sure you want to delete {{ fournisseur.name }}?</p>
+<form method="post" action="{% url 'facturation:delete_fournisseur' fournisseur.pk %}">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+</form>

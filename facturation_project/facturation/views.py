@@ -29,8 +29,12 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 
 from django.template.loader import render_to_string
 import os
-os.add_dll_directory(r"C:\Program Files\GTK3-Runtime Win64\bin")
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 70d3a09b273e525507e15a753689bd81e6fc7de0
 from django.db.models import Q
 # ...
 
@@ -358,7 +362,7 @@ def update_fournisseur(request, pk):
         form = FournisseurForm(request.POST, instance=fournisseur)
         if form.is_valid():
             form.save()
-            return redirect('facturation:view_fournisseur', pk=pk)
+            return redirect('facturation:fournisseurs', pk=pk)
     else:
         form = FournisseurForm(instance=fournisseur)
     return render(request, 'facturation/update_fournisseur.html', {'form': form, 'fournisseur': fournisseur})

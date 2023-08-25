@@ -39,7 +39,10 @@ X_FRAME_OPTIONS = 'DENY'
 INSTALLED_APPS = [
     'facturation',
     'django_filters',
+    'popup_field',
     'import_export',
+   
+
     'django.contrib.admin',
     'asymmetric_jwt_auth',
     'django.contrib.auth',

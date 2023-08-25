@@ -40,7 +40,7 @@ class Facture(models.Model):
     date_facture = models.DateField()
     date_depot = models.DateField()
     montant = models.DecimalField(max_digits=10, decimal_places=2)
-    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    service = models.ForeignKey(Servicegi, on_delete=models.CASCADE)
     
     status = models.CharField(choices=(('draft', 'Draft'), ('validated', 'Validated'), ('paid', 'Paid')), default='draft', max_length=20)
     echeance = models.DateField(blank=True, null=True)  

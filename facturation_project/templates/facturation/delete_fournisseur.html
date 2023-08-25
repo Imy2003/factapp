@@ -1,12 +1,11 @@
-{% extends "layouts/base.html" %}
-
-{% block content %}
-<div class='home-section'>
-    <h2>Delete Fournisseur?</h2>
-    <p>Are you sure you want to delete "{{ fournisseur.nom }}"?</p>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Delete</button>
-    </form>
+<!-- Delete Modal -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <form id="delete-form" method="post">
+            {% csrf_token %}
+            <p>Are you sure you want to delete "{{ fournisseur.name }}"?</p>
+            <button type="submit">Delete</button>
+            <a class="modal-close" href="#">Cancel</a>
+        </form>
+    </div>
 </div>
-{% endblock %}
