@@ -27,7 +27,12 @@ SECRET_KEY = 'django-insecure-7p=e9se)0fa^=5(%ofc0sn%19_$6b1$0s#3!z52*7ueo_=_$)z
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+#SECURE_SSL_REDIRECT = True
 
 # Application definition
 
@@ -36,16 +41,20 @@ INSTALLED_APPS = [
     'django_filters',
     'import_export',
     'django.contrib.admin',
+    'asymmetric_jwt_auth',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'certbot_django.server',
+
 ]
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 IMPORT_EXPORT_USE_TRANSACTIONS = True
+CSRF_COOKIE_SECURE = True
 
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
@@ -61,7 +70,14 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'asymmetric_jwt_auth.middleware.JWTAuthMiddleware',
+
+
 ]
+
+
+SESSION_COOKIE_AGE = 7200  
+
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 ROOT_URLCONF = 'facturation_project.urls'
