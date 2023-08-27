@@ -8,14 +8,7 @@ from django.contrib.auth.models import User
 #class LoginForm(forms.Form):
     #username = forms.CharField(max_length=150)
     #password = forms.CharField(widget=forms.PasswordInput)
-class Viewer(models.Model):
-    user=models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    name= models.CharField(max_length=200,null=True)
-    email=models.CharField(max_length=200,null=True)
-    date_created=models.DateTimeField(auto_now_add=True, null=True)
-    def __str__(self):
-        return self.name
-    
+
 
 
 class Service(models.Model):
@@ -40,7 +33,7 @@ class Facture(models.Model):
     date_facture = models.DateField()
     date_depot = models.DateField()
     montant = models.DecimalField(max_digits=10, decimal_places=2)
-    service = models.ForeignKey(Servicegi, on_delete=models.CASCADE)
+    service = models.ForeignKey(Service, on_delete=models.CASCADE)
     
     status = models.CharField(choices=(('draft', 'Draft'), ('validated', 'Validated'), ('paid', 'Paid')), default='draft', max_length=20)
     echeance = models.DateField(blank=True, null=True)  

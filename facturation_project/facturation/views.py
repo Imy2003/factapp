@@ -27,14 +27,10 @@ from io import BytesIO
 from reportlab.lib.pagesizes import letter, landscape
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 
+
 from django.template.loader import render_to_string
 import os
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 70d3a09b273e525507e15a753689bd81e6fc7de0
 from django.db.models import Q
 # ...
 

@@ -30,18 +30,18 @@ ALLOWED_HOSTS = ['*']
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = 'DENY'
-#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-#SECURE_SSL_REDIRECT = True
+
+SECURE_SSL_REDIRECT = False
 
 # Application definition
 
 INSTALLED_APPS = [
     'facturation',
     'django_filters',
-    'popup_field',
+    
     'import_export',
-   
+    
 
     'django.contrib.admin',
     'asymmetric_jwt_auth',

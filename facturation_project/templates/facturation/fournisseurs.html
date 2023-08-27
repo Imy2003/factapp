@@ -1,82 +1,55 @@
 {% extends "layouts/base.html" %}
-{% load group_tags %}
-{% load popup_field_tags %} <!-- Load the popup_field_tags -->
 
 {% block content %}
 <div class='home-section'>
+   
     <h2>Fournisseurs</h2>
     <table>
         <tr>
             <th>Non Fournisseur</th>
             <th>Email</th>
             <th>Phone</th>
-            {% if request.user|user_in_group:'admin' %}
-            <th>Actions</th>
-            {% endif %}
+            {% if request.user.is_admin%}
+            <th>Actions</th> <!-- Add a new column for actions -->
+            {%endif%}
         </tr>
         {% for fournisseur in Fournisseurs %}
         <tr>
             <td>{{ fournisseur.name }}</td>
             <td>{{ fournisseur.email }}</td>
             <td>{{ fournisseur.phone }}</td>
-            {% if request.user|user_in_group:'admin' %}
+            {% if request.user.is_admin%}
             <td>
-                <a href="#" onclick="openPopup('{% popup_instance_form fournisseur %}')">Edit</a>
-                <a href="#" onclick="openPopup('{% popup_instance_delete fournisseur %}')">Delete</a>
+               
+                <a href="{% url 'facturation:update_fournisseur' fournisseur.pk %}">Edit</a>
+                <a href="{% url 'facturation:delete_fournisseur' fournisseur.pk %}">Delete</a>
+            
             </td>
-            {% endif %}
+            {% endif%}
         </tr>
         {% endfor %}
     </table>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script>
-    function openPopup(url) {
-        $.get(url, function(data) {
-            $('.modal-content').html(data);
-            $('.modal').show();
-        });
-    }
-
-    $(document).ready(function() {
-        // Event listener for clicking on "Edit" links
-        $('.edit-link').click(function(e) {
-            e.preventDefault();
-            var pk = $(this).data('pk');
-            var editUrl = '{% url "facturation:update_fournisseur" 0 %}'.replace('0', pk);
-            openPopup(editUrl);
-        });
-        
-        // Event listener for clicking on "Delete" links
-        $('.delete-link').click(function(e) {
-            e.preventDefault();
-            var pk = $(this).data('pk');
-            var deleteUrl = '{% url "facturation:delete_fournisseur" 0 %}'.replace('0', pk);
-            openPopup(deleteUrl);
-        });
+    <div class="pagination">
+        {% if Fournisseurs.has_previous %}
+            <a href="?page={{ Fournisseurs.previous_page_number }}">&laquo;</a>
+        {% else %}
+            <span class="disabled">&laquo;</span>
+        {% endif %}
     
-        // Event listener for clicking outside the modal content to close the modals
-        $('.modal').click(function(e) {
-            if (e.target === this) {
-                $(this).hide();
-            }
-        });
-        
-        // Event listener for form submissions
-        $('#edit-form, #delete-form').submit(function(e) {
-            e.preventDefault(); // Prevent the default form submission
-            var form = $(this);
-
-            $.post(form.attr('action'), form.serialize(), function(data) {
-                // Handle the response if needed, such as displaying success messages
-                // or updating the content on the page
-                // Then, close the modals
-                $('.modal').hide();
-            });
-        });
-    });
-</script>
-
+        {% for i in Fournisseurs.paginator.page_range %}
+            {% if Fournisseurs.number == i %}
+                <span class="current">{{ i }}</span>
+            {% else %}
+                <a href="?page={{ i }}">{{ i }}</a>
+            {% endif %}
+        {% endfor %}
+    
+        {% if Fournisseurs.has_next %}
+            <a href="?page={{ Fournisseurs.next_page_number }}">&raquo;</a>
+        {% else %}
+            <span class="disabled">&raquo;</span>
+        {% endif %}
+    </div>
+    
+</div>
 {% endblock %}
