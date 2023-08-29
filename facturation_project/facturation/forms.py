@@ -25,7 +25,7 @@ class FournisseurForm(forms.ModelForm):
     def clean_name(self):
         name = self.cleaned_data['name']
         if Fournisseur.objects.filter(name=name).exists():
-            raise forms.ValidationError("This supplier already exists.")
+            raise forms.ValidationError("Ce fournissuer existe déja.")
         return name
 
 class ServiceForm(forms.ModelForm):
@@ -35,13 +35,18 @@ class ServiceForm(forms.ModelForm):
     def clean_name(self):
         name = self.cleaned_data['name']
         if Service.objects.filter(name=name).exists():
-            raise forms.ValidationError("This service already exists.")
+            raise forms.ValidationError("Ce Service existe déja")
         return name
 
 class FactureForm(forms.ModelForm):
     class Meta:
         model = Facture
         fields = ['numero', 'fournisseur', 'date_facture', 'date_depot', 'service', 'status','montant']
+    def clean_name(self):
+        numero = self.cleaned_data['numero']
+        if Facture.objects.filter(numero=numero).exists():
+            raise forms.ValidationError("Elle existe une facture avec le meme numero")
+        return numero
 
 class SearchView(forms.Form):
     q = forms.CharField(label="Search", max_length=200)

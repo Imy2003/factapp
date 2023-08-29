@@ -116,6 +116,7 @@ def homepage(request):
         service_form = ServiceForm()
     factures = Facture.objects.all()  # This is for the homepage view
     search_query = request.GET.get('q')
+    factures = Facture.objects.order_by('-date_depot')
 
     myFilter= FactureFilter(request.GET ,queryset=factures) # This is for the homepage view
     factures_filtered=myFilter.qs
@@ -222,8 +223,12 @@ def add_facture(request):
     if request.method == 'POST':
         form = FactureForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('facturation:homepage')
+            facture_numero=form.cleaned_data['numero']
+            if Facture.objects.filter(numero=facture_numero).exists():
+                messages.error(request, f"Une facture avec le meme numero : '{facture_numero}' existe deja.")
+            else:
+                form.save()
+                return redirect('facturation:homepage')
     else:
         form = FactureForm()
     return render(request, 'facturation/add_facture.html', {'form': form})
@@ -237,7 +242,7 @@ def add_fournisseur(request):
             fournisseur_name = form.cleaned_data['name']
             if Fournisseur.objects.filter(name=fournisseur_name).exists():
                 # Supplier with this name already exists, show an error message
-                messages.error(request, f"Fournisseur '{fournisseur_name}' already exists.")
+                messages.error(request, f" le Fournisseur '{fournisseur_name}' existe deja")
             else:
                 form.save()
                 return redirect('facturation:homepage')
