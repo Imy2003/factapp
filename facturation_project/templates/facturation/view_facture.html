@@ -1,18 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>View Facture</title>
-</head>
-<body>
-    <h1>View Facture</h1>
-    <p>Facture Number: {{ facture.number }}</p>
-    <p>Fournisseur: {{ facture.fournisseur }}</p>
-    <p>Date Facture: {{ facture.date_facture }}</p>
-    <p>Date Dépôt: {{ facture.date_depot }}</p>
-    <p>Date Échéance: {{ facture.date_echeance }}</p>
-    <p>Service: {{ facture.service }}</p>
-    <p>Montant: {{ facture.montant }}</p>
-    <p>Status: {{ facture.status }}</p>
-    <a href="{% url 'facturation:homepage' %}">Back to Homepage</a>
-</body>
-</html>
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<div class='modal show'>
+    <div class='blok'>
+
+        <h1>View Facture</h1>
+        <p>Facture Number: {{ facture.numero }}</p>
+        <p>Fournisseur: {{ facture.fournisseur }}</p>
+        <p>Date Facture: {{ facture.date_facture }}</p>
+        <p>Date Dépôt: {{ facture.date_depot }}</p>
+        <p>Date Échéance: {{ facture.echeance }}</p>
+        <p>Service: {{ facture.service }}</p>
+        <p>Montant: {{ facture.montant }}</p>
+        <p>Status: {{ facture.status }}</p>
+        <a href="{% url 'facturation:homepage' %}">retour</a>
+    </div>
+</div>
+{%endblock%}

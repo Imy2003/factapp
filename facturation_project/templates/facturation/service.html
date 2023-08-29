@@ -6,19 +6,22 @@
     <h2>Services</h2>
     <table>
         <tr>
-            <th>Name</th>
-            <th>Description</th>
+            <th>Nom de service</th>
+            {% if request.user|user_in_group:'admin' %}      
             <th>Actions</th>
+            {%endif%}
         </tr>
         {% for service in services %}
         <tr>
             <td>{{ service.name }}</td>
-            <td>{{ service.description }}</td>
+            {% if request.user|user_in_group:'admin' %}  
             <td>
-                {% if request.user|user_in_group:'admin' %}                <a href="{% url 'facturation:update_service' service.pk %}">Edit</a>
-                <a href="{% url 'facturation:delete_service' service.pk %}">Delete</a>
-                {%endif%}
+                              
+                <a href="{% url 'facturation:update_service' service.pk %}">Modifier</a>
+                <a href="{% url 'facturation:delete_service' service.pk %}">Supprimer</a>
+              
             </td>
+            {%endif%}
         </tr>
         {% endfor %}
     </table>

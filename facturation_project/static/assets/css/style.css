@@ -588,3 +588,24 @@ option {
   font-weight: bold;
   background-color: #ffb923;
 }
+.blok button[type='submit'] {
+
+  background-color: #ffb923;
+  color: #000000;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+.blok {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  min-width: 300px;
+  max-height: auto;
+}

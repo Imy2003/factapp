@@ -1,12 +1,15 @@
 {% extends "layouts/base.html" %}
 
 {% block content %}
-<div class='home-section'>
-    <h2>Delete Service?</h2>
-    <p>Are you sure you want to delete "{{ service.name }}"?</p>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Delete</button>
-    </form>
+<div class='modal show'>
+    <div class ='blok'>
+
+        <h2>Supprimer le Service?</h2>
+        <p>Etes-vous sur de supprimer "{{ service.name }}"?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+        </form>
+    </div>
 </div>
 {% endblock %}

@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Delete Facture</title>
-</head>
-<body>
-    <h1>Delete Facture</h1>
-    <p>Are you sure you want to delete the facture with Number: {{ facture.number }}?</p>
-    <form method="POST">
-        {% csrf_token %}
-        <input type="submit" value="Delete Facture">
-    </form>
-    <a href="{% url 'facturation:homepage' %}">Cancel</a>
-</body>
-</html>
+{% extends "layouts/base.html" %}
+{% block content %}
+<div class='modal show'>
+    <div class='blok'>
+        <h1>Supprimer la  Facture</h1>
+        <p>Etes vous sur de supprimer la facture numéro: {{ facture.numero }}?</p>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Supprimer">
+        </form>
+        <a href="{% url 'facturation:homepage' %}">Annuler</a>
+    </div>
+</div>
+{%endblock%}

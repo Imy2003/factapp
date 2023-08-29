@@ -93,30 +93,30 @@
 
         <div class="add-buttons">
             {% if request.user|user_in_group:'admin' %}
-            <button class="modal-button" data-modal-target="#addFactureModal">Add New Facture</button>
-            <button class="modal-button" data-modal-target="#addFournisseurModal">Add New Fournisseur</button>
-            <button class="modal-button" data-modal-target="#addServiceModal">Add New Service</button>
+            <button class="modal-button" data-modal-target="#addFactureModal">Ajouter une Facture</button>
+            <button class="modal-button" data-modal-target="#addFournisseurModal">Ajouter un Fournisseur</button>
+            <button class="modal-button" data-modal-target="#addServiceModal">Ajouter un Service</button>
             {%endif%}
             <button class="modal-button" data-modal-target="#Imprimer">Imprimer</button>
 
         </div>
         <div class="modal" id="Imprimer">
           <div class="modal-content">
-            <h2>Choisis le format</h2>
+         
             <div class="form-container">
               <form role="form" method="POST" action="{% url 'facturation:export_data' %}?{{request.GET.urlencode}}" enctype="multipart/form-data">
                 {% csrf_token %}
                   <div class="form-group">
-                    <label>Choose Format Type</label>
+                    <label>Choisis le format</label>
                     <select class="custom-select" name="file-format">
-                      <option selected>Choose format...</option>
+                      <option selected>format...</option>
                       <option>CSV</option>
                       <option>JSON</option>
                       <option>XLS (Excel)</option>
                       <option>PDF</option>
                     </select>
                   </div> <br><br><br>
-                <button type="submit" class="btn btn-info btn-block">Export</button>
+                <button type="submit" class="btn btn-info btn-block">Exporter</button>
               </form>  
             </div>
           </div>
@@ -124,13 +124,13 @@
         {% if request.user|user_in_group:'admin' %}
         <div class="modal" id="addFactureModal">
           <div class="modal-content">
-              <h2>Add New Facture</h2>
+              <h2>Ajouter une Facture</h2>
               <div class="form-container">
                   <!-- Add Facture Form Content -->
                   <form method="POST">
                       {% csrf_token %}
                       {{ facture_form.as_p }}
-                      <input type="submit" value="Add Facture">
+                      <input type="submit" value="Adjouter une Facture">
                   </form>
               </div>
           </div>
@@ -140,13 +140,13 @@
         <div class="modal" id="addFournisseurModal">
           <div class="modal-content">
               
-              <h2>Add New Fournisseur</h2>
+              <h2>Ajouter un Fournisseur</h2>
               <div class='form-container'>
 
                   <form method="post">
                       {% csrf_token %}
                       {{ fournisseur_form.as_p }}
-                      <input type="submit" value="Add Fournisseur">
+                      <input type="submit" value="Ajouter un Fournisseur">
                   </form>
               </div>
           </div>
@@ -160,7 +160,7 @@
                   <form method="post">
                       {% csrf_token %}
                       {{ service_form.as_p }}
-                      <input type="submit" value="Add Service">
+                      <input type="submit" value="Ajouter un  Service">
                   </form>
               </div>
           </div>
@@ -176,8 +176,8 @@
       </div>
     </div>    
 {% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">Log In</a>
+  <p>Vous n'étes pas connectés</p>
+  <a href="{% url 'login' %}"> se Connecter</a>
 {% endif %}
 <script>
   // Add the 'active' class to the clicked pagination item

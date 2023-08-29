@@ -1,5 +1,5 @@
 {% extends "layouts/base.html" %}
-
+{% load group_tags %}
 {% block content %}
 <div class='home-section'>
    
@@ -9,7 +9,7 @@
             <th>Non Fournisseur</th>
             <th>Email</th>
             <th>Phone</th>
-            {% if request.user.is_admin%}
+            {% if request.user|user_in_group:'admin' %} 
             <th>Actions</th> <!-- Add a new column for actions -->
             {%endif%}
         </tr>
@@ -18,11 +18,11 @@
             <td>{{ fournisseur.name }}</td>
             <td>{{ fournisseur.email }}</td>
             <td>{{ fournisseur.phone }}</td>
-            {% if request.user.is_admin%}
+            {% if request.user|user_in_group:'admin' %} 
             <td>
                
-                <a href="{% url 'facturation:update_fournisseur' fournisseur.pk %}">Edit</a>
-                <a href="{% url 'facturation:delete_fournisseur' fournisseur.pk %}">Delete</a>
+                <a href="{% url 'facturation:update_fournisseur' fournisseur.pk %}">Editer</a>
+                <a href="{% url 'facturation:delete_fournisseur' fournisseur.pk %}">Supprimer</a>
             
             </td>
             {% endif%}
@@ -30,22 +30,22 @@
         {% endfor %}
     </table>
     <div class="pagination">
-        {% if factures_filtered.has_previous %}
-            <a href="?page={{ factures_filtered.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">&laquo;</a>
+        {% if Fournisseurs.has_previous %}
+            <a href="?page={{ Fournisseurs.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">&laquo;</a>
         {% else %}
             <span class="disabled">&laquo;</span>
         {% endif %}
     
-        {% for i in factures_filtered.paginator.page_range %}
-            {% if factures_filtered.number == i %}
+        {% for i in Fournisseurs.paginator.page_range %}
+            {% if Fournisseurs.number == i %}
                 <span class="current">{{ i }}</span>
             {% else %}
                 <a href="?page={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ i }}</a>
             {% endif %}
         {% endfor %}
     
-        {% if factures_filtered.has_next %}
-            <a href="?page={{ factures_filtered.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">&raquo;</a>
+        {% if Fournisseurs.has_next %}
+            <a href="?page={{ Fournisseurs.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">&raquo;</a>
         {% else %}
             <span class="disabled">&raquo;</span>
         {% endif %}

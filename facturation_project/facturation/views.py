@@ -29,7 +29,7 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 
 from django.template.loader import render_to_string
 import os
-os.add_dll_directory(r"C:\Program Files\GTK3-Runtime Win64\bin")
+
 
 from django.db.models import Q
 # ...
@@ -37,7 +37,7 @@ from django.db.models import Q
 @user_passes_test(lambda user: not user.is_authenticated, login_url='facturation:homepage')
 def register_user(request):
     msg = None
-    form = SignUpForm(request.POST)
+    
     
     if request.method == "POST":
         form = SignUpForm(request.POST)
@@ -55,7 +55,8 @@ def register_user(request):
 
         else:
             msg = 'Form is not valid'
-
+    else:
+        form = SignUpForm()
     return render(request, "templates/facturation/register.html", {"form": form, "msg": msg})
 @unauthenticated_user
 def login_view(request):
@@ -328,7 +329,7 @@ def update_service(request, pk):
         form = ServiceForm(request.POST, instance=service)
         if form.is_valid():
             form.save()
-            return redirect('facturation:view_service', pk=pk)
+            return redirect('facturation:services', pk=pk)
     else:
         form = ServiceForm(instance=service)
     return render(request, 'facturation/update_service.html', {'form': form, 'service': service})
@@ -358,7 +359,7 @@ def update_fournisseur(request, pk):
         form = FournisseurForm(request.POST, instance=fournisseur)
         if form.is_valid():
             form.save()
-            return redirect('facturation:view_fournisseur', pk=pk)
+            return redirect('facturation:fournisseurs', pk=pk)
     else:
         form = FournisseurForm(instance=fournisseur)
     return render(request, 'facturation/update_fournisseur.html', {'form': form, 'fournisseur': fournisseur})
